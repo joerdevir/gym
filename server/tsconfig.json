@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+      "strict": true,
+      "strictNullChecks": true,
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "resolveJsonModule": true,
+      "esModuleInterop": true,
+      "allowJs": true,
+      "checkJs": true,
+      "module": "CommonJS",
+      "removeComments": true,
+      "preserveConstEnums": true,
+      "skipLibCheck": true,
+      "sourceMap": true,
+      "target": "ES2022",
+      "moduleResolution": "Node",
+      "outDir": "dist",
+      "baseUrl": "/",
+  },
+  "include": [
+    "core/**/*.ts",
+    "src/**/*.ts",
+    "tests/**/*.ts",
+  ],
+  "exclude": ["dist"]
+}
