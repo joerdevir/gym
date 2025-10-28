@@ -6,15 +6,12 @@ describe('User Aggregate', () => {
   describe('create', () => {
     it('should be able to create a user with valid data', () => {
     
-      const userBuilder = new UserBuilder()
+      const user = new UserBuilder()
         .setFullName('John Doe')
         .setEmail('john.doe@example.com')
         .setPhone('85988023938')
         .setRole(UserRoleEnum.ADMIN)
         .build()
-      if (userBuilder.isLeft()) throw new Error(userBuilder.value.message)
-
-      const user = userBuilder.value
 
       expect(user.raw.full_name).toBe('John Doe')
       expect(user.raw.first_name).toBe('John')

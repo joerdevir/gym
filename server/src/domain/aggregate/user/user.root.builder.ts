@@ -1,6 +1,5 @@
 import { Component } from "../../../../core/component"
 import { UniqueEntityID } from "../../../../core/domain/unique-entity-id"
-import { EitherResult } from "../../../../core/either"
 import { Email } from "../../value-object/email.vo"
 import { PhoneVO } from "../../value-object/phone.vo"
 import { User } from "./user.root"
@@ -31,7 +30,7 @@ export class UserBuilder extends Component {
     return this
   }
   
-  setPhone(phone: string): UserBuilder {
+  setPhone(phone: string | undefined): UserBuilder {
     this.phone = phone
     return this
   }
@@ -41,28 +40,31 @@ export class UserBuilder extends Component {
     return this
   }
 
-  build(): EitherResult<User> {
+  build(): User {
     const name = UserNameVO.create({ full_name: this.full_name })
-    if (name.isLeft()) return this.either.left(name.value)
+    if (name.isLeft()) throw new Error(name.value.message)
 
     const email = Email.create({ value: this.email })
-    if (email.isLeft()) return this.either.left(email.value)
+    if (email.isLeft()) throw new Error(email.value.message)
 
     let phone: PhoneVO | undefined
     if (this.phone) {
       const result = PhoneVO.create({ value: this.phone })
-      if (result.isLeft()) return this.either.left(result.value)
+      if (result.isLeft()) throw new Error(result.value.message)
       phone = result.value
     }
 
     const role = UserRoleVO.create({ value: this.role })
-    if (role.isLeft()) return this.either.left(role.value)
+    if (role.isLeft()) throw new Error(role.value.message)
 
-    return User.create({
+    const user = User.create({
       name: name.value,
       email: email.value,
       phone: phone,
       role: role.value,
     }, UniqueEntityID.UUIDv7())
+    if (user.isLeft()) throw new Error(user.value.message)
+
+    return user.value
   }
 }
