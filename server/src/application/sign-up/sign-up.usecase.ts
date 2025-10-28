@@ -2,8 +2,6 @@ import { Usecase } from "../../../core/application/usecase";
 import { EitherResult } from "../../../core/either";
 import { UserRepo } from "../../domain/aggregate/user/user.repository";
 import { UserRoleEnum } from "../../domain/aggregate/user/user.role.vo";
-import { UserRaw } from "../../domain/aggregate/user/user.root";
-import { UserBuilder } from "../../domain/aggregate/user/user.root.builder";
 import { CognitoAdapter } from "../../infra/cognito/cognito.adapter";
 import { PostgresAdapter } from "../../infra/database/postgres/postgres.adapter";
 import { env } from "../../infra/config/env";

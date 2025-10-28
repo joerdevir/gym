@@ -30,7 +30,6 @@ export const handler = async (event: APIGatewayProxyEvent) => {
     email: string
     phone: string
     password: string
-    role: string
   }
 
   const result = await signUp.execute({
@@ -38,7 +37,6 @@ export const handler = async (event: APIGatewayProxyEvent) => {
     email: body?.email,
     phone: body?.phone,
     password: body?.password,
-    role: body?.role as any,
   })
   if (result.isLeft()) {
     return {
