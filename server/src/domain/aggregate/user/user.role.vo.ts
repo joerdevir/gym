@@ -3,7 +3,8 @@ import { EitherResult } from "../../../../core/either";
 
 export enum UserRoleEnum {
   ADMIN = 'admin',
-  MEMBER = 'member'
+  MEMBER = 'member',
+  GUEST = 'guest'
 }
 
 interface Props {

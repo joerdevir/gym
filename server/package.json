@@ -7,6 +7,9 @@
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage"
   },
+  "bin": {
+    "project": "bin/project.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -17,6 +20,22 @@
     "@types/pg": "^8.15.6",
     "typescript": "^5.9.3",
     "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "@aws-sdk/client-cognito-identity-provider": "^3.918.0",
+    "@aws-sdk/client-dynamodb": "^3.918.0",
+    "@aws-sdk/client-secrets-manager": "^3.918.0",
+    "@aws-sdk/lib-dynamodb": "^3.918.0",
+    "ajv": "^8.17.1",
+    "ajv-errors": "^3.0.0",
+    "ajv-formats": "^3.0.1",
+    "aws-lambda": "^1.0.7",
+    "axios": "^1.13.0",
+    "constructs": "^10.4.2",
+    "dayjs": "^1.11.18",
+    "libphonenumber-js": "^1.12.24",
+    "pg": "^8.16.3",
+    "uuid": "^13.0.0"
   },
   "include": [
     "src/**/*.ts"
@@ -29,20 +48,5 @@
     "logs",
     "tmp",
     "*.log"
-  ],
-  "dependencies": {
-    "@aws-sdk/client-cognito-identity-provider": "^3.918.0",
-    "@aws-sdk/client-dynamodb": "^3.918.0",
-    "@aws-sdk/client-secrets-manager": "^3.918.0",
-    "@aws-sdk/lib-dynamodb": "^3.918.0",
-    "ajv": "^8.17.1",
-    "ajv-errors": "^3.0.0",
-    "ajv-formats": "^3.0.1",
-    "aws-lambda": "^1.0.7",
-    "axios": "^1.13.0",
-    "dayjs": "^1.11.18",
-    "libphonenumber-js": "^1.12.24",
-    "pg": "^8.16.3",
-    "uuid": "^13.0.0"
-  }
+  ]
 }

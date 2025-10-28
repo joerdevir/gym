@@ -1,9 +1,12 @@
 
 import { APIGatewayProxyEvent } from 'aws-lambda'
-import { CognitoAdapter } from '../../infra/cognito/cognito.adapter'
+import { CognitoIdentityProviderClient } from '@aws-sdk/client-cognito-identity-provider'
+import { CognitoConfirmSignUp } from '../../infra/cognito/cognito.confirm-sign-up'
 import { ConfirmSignUpUsecase } from './confirm-sign-up.usecase'
+import { env } from '../../infra/config/env'
 
-const cognito = new CognitoAdapter()
+const cognitoClient = new CognitoIdentityProviderClient({ region: env.AWS_REGION })
+const cognito = new CognitoConfirmSignUp({ cognito: cognitoClient })
 const confirmSignUp = new ConfirmSignUpUsecase({ cognito })
 
 export const handler = async (event: APIGatewayProxyEvent) => {

@@ -1,10 +1,9 @@
 import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb'
 import { DynamoDB } from '@aws-sdk/client-dynamodb'
+import { CognitoIdentityProviderClient } from '@aws-sdk/client-cognito-identity-provider'
 import { APIGatewayProxyEvent } from 'aws-lambda'
-import { SignUpUsecase } from './sign-up.usecase'
-import { PostgresAdapter } from '../../infra/database/postgres/postgres.adapter'
-import { CognitoAdapter } from '../../infra/cognito/cognito.adapter'
-import { UserDatabaseRepo } from '../../infra/repository/user.database.repo'
+import { SelfSignUpUsecase } from './self-sign-up.usecase'
+import { CognitoSignUp } from '../../infra/cognito/cognito.sign-up'
 import { DynamoAdapter } from '../../infra/database/dynamo/dynamo.adapter'
 import { env } from '../../infra/config/env'
   
@@ -12,15 +11,10 @@ const dynamoClient = new DynamoDB({ region: env.AWS_REGION })
 const dynamoDBDocumentClient = DynamoDBDocumentClient.from(dynamoClient)
 const dynamo = new DynamoAdapter({ dynamoDBDocumentClient })
 
-const postgres = new PostgresAdapter()
-const cognito = new CognitoAdapter()
-const userRepo = new UserDatabaseRepo({ dynamo })
+const cognitoClient = new CognitoIdentityProviderClient({ region: env.AWS_REGION })
+const cognito = new CognitoSignUp({ cognito: cognitoClient })
 
-const signUp = new SignUpUsecase({
-  userRepo,
-  postgres,
-  cognito,
-})
+const signUp = new SelfSignUpUsecase({ cognitoSignUp: cognito })
 
 export const handler = async (event: APIGatewayProxyEvent) => {
   console.log('SignUpLambda', { event: JSON.stringify(event, null, 2) })

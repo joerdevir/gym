@@ -49,10 +49,7 @@ export class OrganizationBuilder extends Component {
   }
 
   build(): EitherResult<Organization> {
-    const name = OrganizationNameVO.create({
-      display_name: this.display_name!,
-      legal_name: this.legal_name
-    })
+    const name = OrganizationNameVO.create({ display_name: this.display_name!, legal_name: this.legal_name })
     if (name.isLeft()) return this.either.left(name.value)
 
     let email: Email | undefined

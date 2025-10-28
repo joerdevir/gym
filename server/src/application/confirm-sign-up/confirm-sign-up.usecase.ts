@@ -1,10 +1,10 @@
 import { Usecase } from "../../../core/application/usecase";
 import { EitherResult } from "../../../core/either";
-import { CognitoAdapter } from "../../infra/cognito/cognito.adapter";
+import { CognitoConfirmSignUp } from "../../infra/cognito/cognito.confirm-sign-up";
 import { env } from "../../infra/config/env";
 
 interface Props {
-  cognito: CognitoAdapter
+  cognito: CognitoConfirmSignUp
 }
 
 interface Input {
@@ -13,7 +13,7 @@ interface Input {
 }
 
 export class ConfirmSignUpUsecase extends Usecase {
-  readonly #cognito: CognitoAdapter
+  readonly #cognito: CognitoConfirmSignUp
 
   constructor(props: Props) {
     super()
@@ -21,7 +21,7 @@ export class ConfirmSignUpUsecase extends Usecase {
   }
 
   async execute(input: Input): Promise<EitherResult<void>> {
-    const confirmSignUp = await this.#cognito.confirmSignUp({
+    const confirmSignUp = await this.#cognito.execute({
       ClientId: env.COGNITO_CLIENT_ID,
       Username: input.email,
       ConfirmationCode: input.confirmation_code,
