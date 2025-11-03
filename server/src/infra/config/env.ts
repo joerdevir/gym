@@ -1,3 +1,5 @@
+import 'dotenv/config'
+
 export const env = {
   NODE_ENV: process.env.NODE_ENV,
   AWS_REGION: process.env.AWS_REGION,

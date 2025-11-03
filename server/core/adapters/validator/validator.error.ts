@@ -6,7 +6,7 @@ export class ValidationError extends AppError {
   constructor(errors?: ErrorObject[] | null | undefined) {
     console.error('[VALIDATION_ERROR]', JSON.stringify(errors, null, 2))
     super({
-      message: errors?.map((error: ErrorObject) => error.message).join(' - ') || 'Validation error', 
+      message: errors?.map((error: ErrorObject) => error.message).filter(Boolean).join(' - ') || 'Validation error', 
       status: HttpStatusCode.BAD_REQUEST,
       originError: errors
     })
