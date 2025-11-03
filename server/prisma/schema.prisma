@@ -5,5 +5,43 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_CONNECTION_URL")
+  url      = env("POSTGRES_CONNECTION_URL")
+}
+
+model User {
+  user_id String @id @db.Uuid
+  name    String
+  email   String @unique
+  phone   String @unique
+
+  organizations OrganizationUser[]
+
+  @@map("users")
+}
+
+enum OrganizationRole {
+  ADMIN
+  MEMBER
+  GUEST
+}
+
+model Organization {
+  organization_id String @id @db.Uuid
+  name            String
+
+  users OrganizationUser[]
+
+  @@map("organizations")
+}
+
+model OrganizationUser {
+  user_id         String           @db.Uuid
+  organization_id String           @db.Uuid
+  role            OrganizationRole @default(MEMBER)
+
+  user         User         @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate: Cascade)
+  organization Organization @relation(fields: [organization_id], references: [organization_id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@id([organization_id, user_id])
+  @@map("organizations_users")
 }
