@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: gym_user
+      POSTGRES_PASSWORD: gym_pass
+      POSTGRES_DB: gym_db
+    ports:
+      - 5432:5432
+    volumes:
+        - ./.docker/pgdata:/var/lib/postgresql
+  dynamodb:
+    image: amazon/dynamodb-local
+    container_name: dynamodb
+    ports:
+      - 8000:8000
