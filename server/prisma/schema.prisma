@@ -9,10 +9,14 @@ datasource db {
 }
 
 model User {
-  user_id String @id @db.Uuid
-  name    String
-  email   String @unique
-  phone   String @unique
+  user_id      String  @id @db.Uuid
+  full_name    String
+  display_name String
+  first_name   String
+  middle_name  String?
+  last_name    String?
+  email        String  @unique
+  phone        String? @unique
 
   organizations OrganizationUser[]
 

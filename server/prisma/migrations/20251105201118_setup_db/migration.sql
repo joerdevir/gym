@@ -4,9 +4,13 @@ CREATE TYPE "OrganizationRole" AS ENUM ('ADMIN', 'MEMBER', 'GUEST');
 -- CreateTable
 CREATE TABLE "users" (
     "user_id" UUID NOT NULL,
-    "name" TEXT NOT NULL,
+    "full_name" TEXT NOT NULL,
+    "display_name" TEXT NOT NULL,
+    "first_name" TEXT NOT NULL,
+    "middle_name" TEXT,
+    "last_name" TEXT,
     "email" TEXT NOT NULL,
-    "phone" TEXT NOT NULL,
+    "phone" TEXT,
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("user_id")
 );
